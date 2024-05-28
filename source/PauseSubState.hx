@@ -25,29 +25,28 @@ class PauseSubState extends MusicBeatSubstate
 
 	var pauseMusic:FlxSound;
 	var practiceText:FlxText;
-	//var botplayText:FlxText;
 
+	// var botplayText:FlxText;
 	public static var transCamera:FlxCamera;
 
 	public function new(x:Float, y:Float)
 	{
 		super();
-		if(CoolUtil.difficulties.length < 2) menuItemsOG.remove('Change Difficulty'); //No need to change difficulty if there is only one!
+		if (CoolUtil.difficulties.length < 2)
+			menuItemsOG.remove('Change Difficulty'); // No need to change difficulty if there is only one!
 
-		
-
-		if(Storage.startingTime !=0)
+		if (Storage.startingTime != 0)
 			menuItemsOG.insert(2, 'Restart From CheckPoint');
 
-	
-		if(PlayState.chartingMode)
+		if (PlayState.chartingMode)
 		{
 			menuItemsOG.insert(3, 'Toggle Practice Mode');
 			menuItemsOG.insert(4, 'Toggle Botplay');
 		}
 		menuItems = menuItemsOG;
 
-		for (i in 0...CoolUtil.difficulties.length) {
+		for (i in 0...CoolUtil.difficulties.length)
+		{
 			var diff:String = '' + CoolUtil.difficulties[i];
 			difficultyChoices.push(diff);
 		}
@@ -154,13 +153,14 @@ class PauseSubState extends MusicBeatSubstate
 		if (accepted)
 		{
 			var daSelected:String = menuItems[curSelected];
-			if(difficultyChoices.contains(daSelected)) {
+			if (difficultyChoices.contains(daSelected))
+			{
 				var name:String = PlayState.SONG.song.toLowerCase();
 				var poop = Highscore.formatSong(name, curSelected);
 				PlayState.SONG = Song.loadFromJson(poop, name);
 				PlayState.storyDifficulty = curSelected;
 				CustomFadeTransition.nextCamera = transCamera;
-				MusicBeatState.resetState();
+				FlxG.resetState();
 				FlxG.sound.music.volume = 0;
 				PlayState.changedDifficulty = true;
 				PlayState.chartingMode = false;
@@ -179,13 +179,11 @@ class PauseSubState extends MusicBeatSubstate
 					PlayState.changedDifficulty = true;
 					practiceText.visible = PlayState.instance.practiceMode;
 				case "Restart Song":
-					restartSong(false,true);
+					restartSong(false, true);
 
 				case 'Restart From CheckPoint':
-				
 					restartSong(true);
-					
-			
+
 				case 'Toggle Botplay':
 					PlayState.instance.cpuControlled = !PlayState.instance.cpuControlled;
 					PlayState.changedDifficulty = true;
@@ -193,13 +191,16 @@ class PauseSubState extends MusicBeatSubstate
 					PlayState.instance.botplayTxt.alpha = 1;
 					PlayState.instance.botplaySine = 0;
 				case "Exit to menu":
-					PlayState.instance.resetStats();	
+					PlayState.instance.resetStats();
 					PlayState.deathCounter = 0;
 					PlayState.seenCutscene = false;
-					if(PlayState.isStoryMode) {
-						MusicBeatState.switchState(new MainMenuState());
-					} else {
-						MusicBeatState.switchState(new FreeplayState());
+					if (PlayState.isStoryMode)
+					{
+						FlxG.switchState(() ->  new MainMenuState());
+					}
+					else
+					{
+						FlxG.switchState(() ->  new FreeplayState());
 					}
 					FlxG.sound.playMusic(Paths.music('MENU'));
 					PlayState.changedDifficulty = false;
@@ -212,26 +213,25 @@ class PauseSubState extends MusicBeatSubstate
 		}
 	}
 
-	public static function restartSong(noTrans:Bool = false,reset:Bool=false)
+	public static function restartSong(noTrans:Bool = false, reset:Bool = false)
 	{
 		PlayState.instance.paused = true; // For lua
 		FlxG.sound.music.volume = 0;
 		PlayState.instance.vocals.volume = 0;
 
-        if(reset)
-		PlayState.instance.resetStats();
-		else 
-		PlayState.instance.setStatsToStorage();
+		if (reset)
+			PlayState.instance.resetStats();
+		else
+			PlayState.instance.setStatsToStorage();
 
-
-		if(noTrans)
+		if (noTrans)
 		{
 			FlxTransitionableState.skipNextTransOut = true;
 			FlxG.resetState();
 		}
 		else
 		{
-			MusicBeatState.resetState();
+			FlxG.resetState();
 		}
 	}
 
@@ -271,11 +271,14 @@ class PauseSubState extends MusicBeatSubstate
 		}
 	}
 
-	function regenMenu():Void {
-		for (i in 0...grpMenuShit.members.length) {
+	function regenMenu():Void
+	{
+		for (i in 0...grpMenuShit.members.length)
+		{
 			this.grpMenuShit.remove(this.grpMenuShit.members[0], true);
 		}
-		for (i in 0...menuItems.length) {
+		for (i in 0...menuItems.length)
+		{
 			var item = new Alphabet(0, 70 * i + 30, menuItems[i], true, false);
 			item.isMenuItem = true;
 			item.targetY = i;

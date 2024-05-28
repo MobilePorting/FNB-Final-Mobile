@@ -13,11 +13,8 @@ import flixel.addons.transition.FlxTransitionableState;
 
 class GameOverSubstate extends MusicBeatSubstate
 {
-	
-
-	
-	
 	public var boyfriend:Boyfriend;
+
 	var camFollow:FlxPoint;
 	var camFollowPos:FlxObject;
 	var updateCamera:Bool = false;
@@ -31,7 +28,8 @@ class GameOverSubstate extends MusicBeatSubstate
 
 	public static var instance:GameOverSubstate;
 
-	public static function resetVariables() {
+	public static function resetVariables()
+	{
 		characterName = 'fucker';
 		deathSoundName = 'fnf_loss_sfx';
 		loopSoundName = 'ryugagameover';
@@ -78,22 +76,21 @@ class GameOverSubstate extends MusicBeatSubstate
 	}
 
 	var isFollowingAlready:Bool = false;
+
 	override function update(elapsed:Float)
 	{
 		super.update(elapsed);
 
 		PlayState.instance.callOnLuas('onUpdate', [elapsed]);
-		if(updateCamera) {
+		if (updateCamera)
+		{
 			var lerpVal:Float = CoolUtil.boundTo(elapsed * 0.6, 0, 1);
 			camFollowPos.setPosition(FlxMath.lerp(camFollowPos.x, camFollow.x, lerpVal), FlxMath.lerp(camFollowPos.y, camFollow.y, lerpVal));
 		}
 
 		if (controls.ACCEPT)
 		{
-		
-					endBullshit();
-				
-	
+			endBullshit();
 		}
 
 		if (controls.BACK)
@@ -102,16 +99,15 @@ class GameOverSubstate extends MusicBeatSubstate
 			PlayState.deathCounter = 0;
 			PlayState.seenCutscene = false;
 
-			MusicBeatState.switchState(new MainMenuState());
+			FlxG.switchState(() ->  new MainMenuState());
 
-				
 			FlxG.sound.playMusic(Paths.music('MENU'));
 			PlayState.instance.callOnLuas('onGameOverConfirm', [false]);
 		}
 
 		if (boyfriend.animation.curAnim.name == 'firstDeath')
 		{
-			if(boyfriend.animation.curAnim.curFrame >= 12 && !isFollowingAlready)
+			if (boyfriend.animation.curAnim.curFrame >= 12 && !isFollowingAlready)
 			{
 				FlxG.camera.follow(camFollowPos, LOCKON, 1);
 				updateCamera = true;
@@ -136,7 +132,7 @@ class GameOverSubstate extends MusicBeatSubstate
 	{
 		super.beatHit();
 
-		//FlxG.log.add('beat');
+		// FlxG.log.add('beat');
 	}
 
 	var isEnding:Bool = false;
@@ -159,7 +155,6 @@ class GameOverSubstate extends MusicBeatSubstate
 				FlxG.camera.fade(FlxColor.BLACK, 2, false, function()
 				{
 					restartSong();
-				
 				});
 			});
 			PlayState.instance.callOnLuas('onGameOverConfirm', [true]);
@@ -167,20 +162,19 @@ class GameOverSubstate extends MusicBeatSubstate
 	}
 
 	public static function restartSong(noTrans:Bool = false)
-		{
-			PlayState.instance.paused = true; // For lua
-			FlxG.sound.music.volume = 0;
-			PlayState.instance.vocals.volume = 0;
-	
-			if(noTrans)
-			{
-				FlxTransitionableState.skipNextTransOut = true;
-				FlxG.resetState();
-			}
-			else
-			{
-				MusicBeatState.resetState();
-			}
-		}
+	{
+		PlayState.instance.paused = true; // For lua
+		FlxG.sound.music.volume = 0;
+		PlayState.instance.vocals.volume = 0;
 
+		if (noTrans)
+		{
+			FlxTransitionableState.skipNextTransOut = true;
+			FlxG.resetState();
+		}
+		else
+		{
+			FlxG.resetState();
+		}
+	}
 }

@@ -25,17 +25,10 @@ using StringTools;
 
 class MainMenuState extends MusicBeatState
 {
-
 	override function create()
 	{
-
-	
-
 		super.create();
 	}
-
-
-
 
 	override function update(elapsed:Float)
 	{
@@ -44,23 +37,11 @@ class MainMenuState extends MusicBeatState
 			FlxG.sound.music.volume += 0.5 * FlxG.elapsed;
 		}
 
-		
 		if (!selectedSomethin)
 			if (controls.ACCEPT)
-                {
-                
-                    
-                    
-                }
-            
-		
-		
+			{
+			}
 
 		super.update(elapsed);
-
-		
 	}
-
-
-
 }

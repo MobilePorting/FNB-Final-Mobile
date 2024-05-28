@@ -25,14 +25,11 @@ using StringTools;
 
 class MainMenuState extends MusicBeatState
 {
-	public static var psychEngineVersion:String = '0.5.1'; //This is also used for Discord RPC
+	public static var psychEngineVersion:String = '0.5.1'; // This is also used for Discord RPC
 	public static var curSelected:Int = 0;
 
 	var menuItems:FlxTypedGroup<FlxSprite>;
-	var optionShit:Array<String> = [
-		'rr',
-		'options'
-	];
+	var optionShit:Array<String> = ['rr', 'options'];
 
 	var debugKeys:Array<FlxKey>;
 
@@ -45,22 +42,14 @@ class MainMenuState extends MusicBeatState
 
 		debugKeys = ClientPrefs.copyKey(ClientPrefs.keyBinds.get('debug_1'));
 
-
-
-		
 		transIn = FlxTransitionableState.defaultTransIn;
 		transOut = FlxTransitionableState.defaultTransOut;
 
 		persistentUpdate = persistentDraw = true;
 
-		
 		var bg:FlxSprite = new FlxSprite(0).loadGraphic(Paths.image('menuBG'));
 		bg.antialiasing = ClientPrefs.globalAntialiasing;
 		add(bg);
-
-	
-	
-
 
 		menuItems = new FlxTypedGroup<FlxSprite>();
 		add(menuItems);
@@ -74,28 +63,17 @@ class MainMenuState extends MusicBeatState
 			menuItem.animation.addByPrefix('idle', optionShit[i] + " basic", 24);
 			menuItem.animation.addByPrefix('selected', optionShit[i] + " white", 24);
 			menuItem.animation.play('idle');
-			menuItem.ID=i;
+			menuItem.ID = i;
 			menuItems.add(menuItem);
 			menuItem.scrollFactor.set();
 			menuItem.antialiasing = true;
 			menuItem.updateHitbox();
 		}
 
-
-
-
-
-	
-
-
 		changeItem();
-
-	
 
 		super.create();
 	}
-
-
 
 	var selectedSomethin:Bool = false;
 
@@ -105,8 +83,6 @@ class MainMenuState extends MusicBeatState
 		{
 			FlxG.sound.music.volume += 0.5 * FlxG.elapsed;
 		}
-
-		
 
 		if (!selectedSomethin)
 		{
@@ -124,76 +100,63 @@ class MainMenuState extends MusicBeatState
 
 			if (controls.ACCEPT)
 			{
-			
-					selectedSomethin = true;
-					FlxG.sound.play(Paths.sound('confirmMenu'));
+				selectedSomethin = true;
+				FlxG.sound.play(Paths.sound('confirmMenu'));
 
-					
-
-					menuItems.forEach(function(spr:FlxSprite)
+				menuItems.forEach(function(spr:FlxSprite)
+				{
+					FlxFlicker.flicker(spr, 1, 0.06, false, false, function(flick:FlxFlicker)
 					{
-							FlxFlicker.flicker(spr, 1, 0.06, false, false, function(flick:FlxFlicker)
-							{
-								var daChoice:String = optionShit[curSelected];
+						var daChoice:String = optionShit[curSelected];
 
-								switch (daChoice)
-								{
-									case 'rr':
-										loadWeek();
-									case 'options':
-										MusicBeatState.switchState(new options.OptionsState());
-								}
-							});
-						
+						switch (daChoice)
+						{
+							case 'rr':
+								loadWeek();
+							case 'options':
+								FlxG.switchState(() ->  new options.OptionsState());
+						}
 					});
-				
+				});
 			}
 			#if desktop
-			else if (FlxG.keys.anyJustPressed(debugKeys))
+			/*else if (FlxG.keys.anyJustPressed(debugKeys))
 			{
 				selectedSomethin = true;
-				MusicBeatState.switchState(new MasterEditorMenu());
-			}
+				FlxG.switchState(() ->  new MasterEditorMenu());
+			}*/
 			#end
 		}
 
 		super.update(elapsed);
-
-		
 	}
-	function loadWeek()
-		{
-		
-			PlayState.storyPlaylist = ['reverse-rotation'];
-			PlayState.isStoryMode = true;
-			PlayState.storyDifficulty = 1;
-			PlayState.SONG = Song.loadFromJson(PlayState.storyPlaylist[0].toLowerCase() , PlayState.storyPlaylist[0].toLowerCase());//no diffs for you
-			PlayState.campaignScore = 0;
-			PlayState.campaignMisses = 0;
-			LoadingState.loadAndSwitchState(new PlayState(), true);
-			FreeplayState.destroyFreeplayVocals();
-		   
-		
-		}
 
+	function loadWeek()
+	{
+		PlayState.storyPlaylist = ['reverse-rotation'];
+		PlayState.isStoryMode = true;
+		PlayState.storyDifficulty = 1;
+		PlayState.SONG = Song.loadFromJson(PlayState.storyPlaylist[0].toLowerCase(), PlayState.storyPlaylist[0].toLowerCase()); // no diffs for you
+		PlayState.campaignScore = 0;
+		PlayState.campaignMisses = 0;
+		LoadingState.loadAndSwitchState(() -> new PlayState(), true);
+		FreeplayState.destroyFreeplayVocals();
+	}
 
 	function changeItem(huh:Int = 0)
 	{
-		curSelected+=huh;
-		if (curSelected ==-1)
+		curSelected += huh;
+		if (curSelected == -1)
 			curSelected = 1;
-		else if (curSelected ==2)
+		else if (curSelected == 2)
 			curSelected = 0;
-		
+
 		menuItems.forEach(function(spr:FlxSprite)
 		{
 			spr.animation.play('idle');
-	
-	         if(spr.ID ==curSelected)
+
+			if (spr.ID == curSelected)
 				spr.animation.play('selected');
-	
-	
-	
 		});
 	}
 }

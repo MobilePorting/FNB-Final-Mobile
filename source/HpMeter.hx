@@ -1,4 +1,5 @@
 package;
+
 #if desktop
 import Discord.DiscordClient;
 #end
@@ -50,7 +51,6 @@ import Achievements;
 import StageData;
 import FunkinLua;
 import DialogueBoxPsych;
-
 #if sys
 import sys.FileSystem;
 #end
@@ -59,146 +59,115 @@ using StringTools;
 
 class HpMeter extends FlxTypedGroup<FlxBasic>
 {
-    var baseX:Flaot=0;
-    var baseY:Flaot=0;
-    var face:FlxSprite;
-    var back:FlxSprite;
-    
-    var left:FlxSprite;
-    var mid:FlxSprite;
-    var right:FlxSprite;
+	var baseX:Flaot = 0;
+	var baseY:Flaot = 0;
+	var face:FlxSprite;
+	var back:FlxSprite;
 
-    var leftUpper:FlxSprite;
-    var midUpper:FlxSprite;
-    var rightUpper:FlxSprite;
+	var left:FlxSprite;
+	var mid:FlxSprite;
+	var right:FlxSprite;
 
-    var leftLower:FlxSprite;
-    var midLower:FlxSprite;
-    var rightLower:FlxSprite;
-     
-    var leftUpper:Int;
-    var midUpper:Int;
-    var rightUpper:Int;
+	var leftUpper:FlxSprite;
+	var midUpper:FlxSprite;
+	var rightUpper:FlxSprite;
 
-    var leftRLower:Int;
-    var midRLower:Int;
-    var rightRLower:Int;
+	var leftLower:FlxSprite;
+	var midLower:FlxSprite;
+	var rightLower:FlxSprite;
 
+	var leftUpper:Int;
+	var midUpper:Int;
+	var rightUpper:Int;
 
+	var leftRLower:Int;
+	var midRLower:Int;
+	var rightRLower:Int;
 
-	public function new(baseX:Flaot,baseY:Float,cam:FlxGObject,leftR:Int,midR:Int,rightR:Int)
+	public function new(baseX:Flaot, baseY:Float, cam:FlxGObject, leftR:Int, midR:Int, rightR:Int)
 	{
 		super();
-	
-        this.baseX = baseX;
-        this.baseY = baseY;
 
+		this.baseX = baseX;
+		this.baseY = baseY;
 
-        face = new FlxSprite(baseX,baseY);
+		face = new FlxSprite(baseX, baseY);
 		face.frames = Paths.getSparrowAtlas('hp/hp');
 		face.animation.addByPrefix('bump', 'hp', 24, false);
-      
-        back = new FlxSprite(baseX,baseY).loadGraphic(Paths.image('hp/hpback'));
-	
-        leftRUpper=leftR-1;
-        midUpper=midR-1;
-        rightUpper=rightR-1;
 
-        leftRLower=leftR+1;
-        midRLower=midR+1;
-        rightRLower=rightR+1;
+		back = new FlxSprite(baseX, baseY).loadGraphic(Paths.image('hp/hpback'));
 
-       
-        watchNumbers(leftRUpper);
-        watchNumbers(midUpper);
-        watchNumbers(rightUpper);
-        watchNumbers(leftRLower);
-        watchNumbers(midRLower);
-        watchNumbers(rightRLower);
-        watchNumbers(left);
-        watchNumbers(mid);
-        watchNumbers(right);
+		leftRUpper = leftR - 1;
+		midUpper = midR - 1;
+		rightUpper = rightR - 1;
 
+		leftRLower = leftR + 1;
+		midRLower = midR + 1;
+		rightRLower = rightR + 1;
 
-    
-        left = new FlxSprite(baseX+90,baseY+33).loadGraphic(Paths.image('hp/num000'+leftR));
-        mid = new FlxSprite(baseX+120,baseY+33).loadGraphic(Paths.image('hp/num000'+midR));
-        right = new FlxSprite(baseX+150,baseY+33).loadGraphic(Paths.image('hp/num000'+rightR));
+		watchNumbers(leftRUpper);
+		watchNumbers(midUpper);
+		watchNumbers(rightUpper);
+		watchNumbers(leftRLower);
+		watchNumbers(midRLower);
+		watchNumbers(rightRLower);
+		watchNumbers(left);
+		watchNumbers(mid);
+		watchNumbers(right);
 
-        leftUpper = new FlxSprite(baseX+90,baseY+33).loadGraphic(Paths.image('hp/num000'+leftRUpper));
-        midUpper = new FlxSprite(baseX+120,baseY+33).loadGraphic(Paths.image('hp/num000'+midUpper));
-        rightUpper = new FlxSprite(baseX+150,baseY+33).loadGraphic(Paths.image('hp/num000'+rightUpper));
-    
-    
-        leftLower = new FlxSprite(baseX+90,baseY+33).loadGraphic(Paths.image('hp/num000'+leftRLower));
-        midLower = new FlxSprite(baseX+120,baseY+33).loadGraphic(Paths.image('hp/num000'+midRLower));
-        rightLower = new FlxSprite(baseX+150,baseY+33).loadGraphic(Paths.image('hp/num000'+rightRLower));
-       
-        add(back);
-        add(left);
-        add(mid);
-        add(right);
-        add(leftUpper);
-        add(midUpper);
-        add(rightUpper);
-        add(leftLower);
-        add(midLower);
-        add(rightLower);
-        add(face);
-     
+		left = new FlxSprite(baseX + 90, baseY + 33).loadGraphic(Paths.image('hp/num000' + leftR));
+		mid = new FlxSprite(baseX + 120, baseY + 33).loadGraphic(Paths.image('hp/num000' + midR));
+		right = new FlxSprite(baseX + 150, baseY + 33).loadGraphic(Paths.image('hp/num000' + rightR));
 
+		leftUpper = new FlxSprite(baseX + 90, baseY + 33).loadGraphic(Paths.image('hp/num000' + leftRUpper));
+		midUpper = new FlxSprite(baseX + 120, baseY + 33).loadGraphic(Paths.image('hp/num000' + midUpper));
+		rightUpper = new FlxSprite(baseX + 150, baseY + 33).loadGraphic(Paths.image('hp/num000' + rightUpper));
 
-    	
-			
-        
-		
+		leftLower = new FlxSprite(baseX + 90, baseY + 33).loadGraphic(Paths.image('hp/num000' + leftRLower));
+		midLower = new FlxSprite(baseX + 120, baseY + 33).loadGraphic(Paths.image('hp/num000' + midRLower));
+		rightLower = new FlxSprite(baseX + 150, baseY + 33).loadGraphic(Paths.image('hp/num000' + rightRLower));
 
-	
-		
+		add(back);
+		add(left);
+		add(mid);
+		add(right);
+		add(leftUpper);
+		add(midUpper);
+		add(rightUpper);
+		add(leftLower);
+		add(midLower);
+		add(rightLower);
+		add(face);
 	}
-    public function watchNumbers(i:Int)
-        {
-          if(i<0)i=9;
-          if(i>9)i=0;
-        }
- 
-        public function watchNumbers(i:Int)
-            {
-              if(i<0)i=9;
-              if(i>9)i=0;
-            }
 
+	public function watchNumbers(i:Int)
+	{
+		if (i < 0)
+			i = 9;
+		if (i > 9)
+			i = 0;
+	}
 
-
-
-
+	public function watchNumbers(i:Int)
+	{
+		if (i < 0)
+			i = 9;
+		if (i > 9)
+			i = 0;
+	}
 
 	override public function update(elapsed:Float)
-        {
-            super.update(elapsed)
-        
- 
-            watchNumbers(leftRUpper);
-            watchNumbers(midUpper);
-            watchNumbers(rightUpper);
-            watchNumbers(leftRLower);
-            watchNumbers(midRLower);
-            watchNumbers(rightRLower);
-            watchNumbers(left);
-            watchNumbers(mid);
-            watchNumbers(right);
-    
+	{
+		super.update(elapsed)
 
-
-
-
-
-        }
-	
-
-
-	
-
-
-
+		watchNumbers(leftRUpper);
+		watchNumbers(midUpper);
+		watchNumbers(rightUpper);
+		watchNumbers(leftRLower);
+		watchNumbers(midRLower);
+		watchNumbers(rightRLower);
+		watchNumbers(left);
+		watchNumbers(mid);
+		watchNumbers(right);
+	}
 }
