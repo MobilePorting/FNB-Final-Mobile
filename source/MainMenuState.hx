@@ -40,6 +40,8 @@ class MainMenuState extends MusicBeatState
 		DiscordClient.changePresence("In the Menus", null);
 		#end
 
+		Paths.precacheImage('alertshit');
+
 		debugKeys = ClientPrefs.copyKey(ClientPrefs.keyBinds.get('debug_1'));
 
 		transIn = FlxTransitionableState.defaultTransIn;

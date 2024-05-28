@@ -1099,7 +1099,7 @@ class Snd
 
 	public function toggleMute()
 	{
-		muted = !muted; // todo
+		muted = !muted;
 		setVolume(volume);
 	}
 

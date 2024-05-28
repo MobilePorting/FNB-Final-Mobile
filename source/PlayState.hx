@@ -399,6 +399,8 @@ class PlayState extends MusicBeatState
 		boyfriendGroup = new FlxSpriteGroup(BF_X, BF_Y);
 		dadGroup = new FlxSpriteGroup(DAD_X, DAD_Y);
 
+		precacheEVERYTHING();
+
 		// stage shit starts here
 
 		var bfbars:FlxSprite = new FlxSprite(1108.35, 551.75).loadGraphic(Paths.image('bfbars', "platform"));
@@ -817,26 +819,26 @@ class PlayState extends MusicBeatState
 		iconP1.x = iconP2.x = healthBar.x - 68;
 
 		/*	hitwindowTest = new FlxSprite();
-					hitwindowTest.makeGraphic(300,300, FlxColor.CYAN);
-					hitwindowTest.cameras = [camHUD];
-					hitwindowTest.alpha=0;
-					hitwindowTest.setPosition(0,0);
-					hitwindowTest.scrollFactor.set();
+			hitwindowTest.makeGraphic(300,300, FlxColor.CYAN);
+			hitwindowTest.cameras = [camHUD];
+			hitwindowTest.alpha=0;
+			hitwindowTest.setPosition(0,0);
+			hitwindowTest.scrollFactor.set();
 
-					add(hitwindowTest);
-
-
+			add(hitwindowTest);
 
 
-					hitcounterText = new FlxText();
-					hitcounterText.setFormat(Paths.font("vcr.ttf"), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-					hitcounterText.scrollFactor.set();
-					hitcounterText.setPosition(100,100);
-					hitcounterText.borderSize = 2;
-					hitcounterText.text="space hit :"+pressedSpaceCounter+" times";
-					hitcounterText.cameras = [camHUD];
 
-					add(hitcounterText); */
+
+			hitcounterText = new FlxText();
+			hitcounterText.setFormat(Paths.font("vcr.ttf"), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			hitcounterText.scrollFactor.set();
+			hitcounterText.setPosition(100,100);
+			hitcounterText.borderSize = 2;
+			hitcounterText.text="space hit :"+pressedSpaceCounter+" times";
+			hitcounterText.cameras = [camHUD];
+
+			add(hitcounterText); */
 
 		startingSong = true;
 
@@ -1054,7 +1056,6 @@ class PlayState extends MusicBeatState
 			foundFile = true;
 		}
 		} if (foundFile)
-
 		{
 			inCutscene = true;
 			var bg = new FlxSprite(-FlxG.width, -FlxG.height).makeGraphic(FlxG.width * 3, FlxG.height * 3, FlxColor.BLACK);
@@ -2072,7 +2073,7 @@ class PlayState extends MusicBeatState
 			paused = true;
 			cancelMusicFadeTween();
 			CustomFadeTransition.nextCamera = camOther;
-			FlxG.switchState(() ->  new CharacterEditorState(SONG.player2));
+			FlxG.switchState(() -> new CharacterEditorState(SONG.player2));
 		}
 
 		if (startingSong)
@@ -2165,15 +2166,15 @@ class PlayState extends MusicBeatState
 			notes.forEachAlive(function(daNote:Note)
 			{
 				/*if (daNote.y > FlxG.height)
-						{
-							daNote.active = false;
-							daNote.visible = false;
-						}
-						else
-						{
-							daNote.visible = true;
-							daNote.active = true;
-					}*/
+				{
+					daNote.active = false;
+					daNote.visible = false;
+				}
+				else
+				{
+					daNote.visible = true;
+					daNote.active = true;
+			}*/
 
 				// i am so fucking sorry for this if condition
 				var strumX:Float = 0;
@@ -2444,7 +2445,7 @@ class PlayState extends MusicBeatState
 		paused = true;
 		cancelMusicFadeTween();
 		CustomFadeTransition.nextCamera = camOther;
-		FlxG.switchState(() ->  new ChartingState());
+		FlxG.switchState(() -> new ChartingState());
 		chartingMode = true;
 
 		#if desktop
@@ -2923,7 +2924,7 @@ class PlayState extends MusicBeatState
 					{
 						CustomFadeTransition.nextCamera = null;
 					}
-					FlxG.switchState(() ->  new MainMenuState());
+					FlxG.switchState(() -> new MainMenuState());
 
 					changedDifficulty = false;
 				}
@@ -2979,7 +2980,7 @@ class PlayState extends MusicBeatState
 				{
 					CustomFadeTransition.nextCamera = null;
 				}
-				FlxG.switchState(() ->  new MainMenuState());
+				FlxG.switchState(() -> new MainMenuState());
 				FlxG.sound.playMusic(Paths.music('MENU'));
 				changedDifficulty = false;
 			}
@@ -3073,12 +3074,12 @@ class PlayState extends MusicBeatState
 		}
 
 		/* if (combo > 60)
-					daRating = 'sick';
-				else if (combo > 12)
-					daRating = 'good'
-				else if (combo > 4)
-					daRating = 'bad';
-			 */
+			daRating = 'sick';
+		else if (combo > 12)
+			daRating = 'good'
+		else if (combo > 4)
+			daRating = 'bad';
+	 */
 
 		var pixelShitPart1:String = "";
 		var pixelShitPart2:String = '';
@@ -3182,9 +3183,9 @@ class PlayState extends MusicBeatState
 			daLoop++;
 		}
 		/* 
-				trace(combo);
-				trace(seperatedScore);
-			 */
+		trace(combo);
+		trace(seperatedScore);
+	 */
 
 		coolText.text = Std.string(seperatedScore);
 		// add(coolText);
@@ -3979,5 +3980,10 @@ class PlayState extends MusicBeatState
 		setOnLuas('rating', ratingPercent);
 		setOnLuas('ratingName', ratingName);
 		setOnLuas('ratingFC', ratingFC);
+	}
+
+	private function precacheEVERYTHING()
+	{
+		// todo
 	}
 }

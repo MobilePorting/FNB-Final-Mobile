@@ -9,9 +9,9 @@ import flixel.FlxSprite;
 #if MODS_ALLOWED
 import sys.io.File;
 import sys.FileSystem;
+#end
 import flixel.graphics.FlxGraphic;
 import openfl.display.BitmapData;
-#end
 import flash.media.Sound;
 
 using StringTools;
@@ -21,7 +21,6 @@ class Paths
 	inline public static var SOUND_EXT = #if web "mp3" #else "ogg" #end;
 	inline public static var VIDEO_EXT = "mp4";
 
-	#if MODS_ALLOWED
 	#if (haxe >= "4.0.0")
 	public static var customImagesLoaded:Map<String, Bool> = new Map();
 	public static var customSoundsLoaded:Map<String, Sound> = new Map();
@@ -30,6 +29,7 @@ class Paths
 	public static var customSoundsLoaded:Map<String, Sound> = new Map<String, Sound>();
 	#end
 
+	#if MODS_ALLOWED
 	public static var ignoreModFolders:Array<String> = [
 		'characters', 'custom_events', 'custom_notetypes', 'data', 'songs', 'music', 'sounds', 'videos', 'images', 'stages', 'weeks', 'fonts', 'scripts'
 	];
@@ -63,9 +63,9 @@ class Paths
 		currentLevel = name.toLowerCase();
 	}
 
-	public static function getPath(file:String, type:AssetType, ?library:Null<String> = null)
+	public static function getPath(file:String, type:AssetType, ?library:Null<String> = "platform")
 	{
-		if (library != null)
+		if (library != null && Assets.exists(getLibraryPath(file, library)))
 			return getLibraryPath(file, library);
 
 		if (currentLevel != null)
@@ -328,14 +328,15 @@ class Paths
 		return path.toLowerCase().replace(' ', '-');
 	}
 
-	#if MODS_ALLOWED
-	static public function addCustomGraphic(key:String):FlxGraphic
+	static public function addCustomGraphic(key:String):FlxGraphic return precacheImage(key);
+
+	static public function precacheImage(key:String):FlxGraphic
 	{
-		if (FileSystem.exists(modsImages(key)))
+		if (Assets.exists(image(key)))
 		{
 			if (!customImagesLoaded.exists(key))
 			{
-				var newBitmap:BitmapData = BitmapData.fromFile(modsImages(key));
+				var newBitmap:BitmapData = BitmapData.fromFile(image(key));
 				var newGraphic:FlxGraphic = FlxGraphic.fromBitmapData(newBitmap, false, key);
 				newGraphic.persist = true;
 				FlxG.bitmap.addGraphic(newGraphic);
@@ -343,9 +344,11 @@ class Paths
 			}
 			return FlxG.bitmap.get(key);
 		}
+		trace ('why $key doesn\'t exists?? fuck you');
 		return null;
 	}
 
+	#if MODS_ALLOWED
 	inline static public function mods(key:String = '')
 	{
 		return 'mods/' + key;
