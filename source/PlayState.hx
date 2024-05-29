@@ -1397,7 +1397,7 @@ class PlayState extends MusicBeatState
 				daNote.visible = false;
 				daNote.ignoreNote = true;
 
-				//daNote.kill();
+				// daNote.kill();
 				notes.remove(daNote, true);
 				daNote.destroy();
 			}
@@ -2325,7 +2325,7 @@ class PlayState extends MusicBeatState
 					daNote.active = false;
 					daNote.visible = false;
 
-					//daNote.kill();
+					// daNote.kill();
 					notes.remove(daNote, true);
 					daNote.destroy();
 				}
@@ -2371,7 +2371,7 @@ class PlayState extends MusicBeatState
 						daNote.active = false;
 						daNote.visible = false;
 
-						//daNote.kill();
+						// daNote.kill();
 						notes.remove(daNote, true);
 						daNote.destroy();
 					}
@@ -2387,7 +2387,7 @@ class PlayState extends MusicBeatState
 					daNote.active = false;
 					daNote.visible = false;
 
-					//daNote.kill();
+					// daNote.kill();
 					unspawnNotes.splice(unspawnNotes.indexOf(daNote), 1);
 					daNote.destroy();
 				}
@@ -2411,7 +2411,7 @@ class PlayState extends MusicBeatState
 						daNote.active = false;
 						daNote.visible = false;
 
-						//daNote.kill();
+						// daNote.kill();
 						notes.remove(daNote, true);
 						daNote.destroy();
 					}
@@ -2427,7 +2427,7 @@ class PlayState extends MusicBeatState
 					daNote.active = false;
 					daNote.visible = false;
 
-					//daNote.kill();
+					// daNote.kill();
 					unspawnNotes.splice(unspawnNotes.indexOf(daNote), 1);
 					daNote.destroy();
 				}
@@ -2886,7 +2886,8 @@ class PlayState extends MusicBeatState
 		timeTxt.visible = false;
 		canPause = false;
 		endingSong = true;
-		camZooming = mobileControls.visible = #if !android virtualPad.visible = #end false;
+		camZooming = mobileControls.visible = #if !android virtualPad.visible = #end
+		false;
 		inCutscene = false;
 		updateTime = false;
 
@@ -3006,7 +3007,7 @@ class PlayState extends MusicBeatState
 			daNote.active = false;
 			daNote.visible = false;
 
-			//daNote.kill();
+			// daNote.kill();
 			notes.remove(daNote, true);
 			daNote.destroy();
 		}
@@ -3260,7 +3261,7 @@ class PlayState extends MusicBeatState
 						{
 							if (Math.abs(doubleNote.strumTime - epicNote.strumTime) < 1)
 							{
-								//doubleNote.kill();
+								// doubleNote.kill();
 								notes.remove(doubleNote, true);
 								doubleNote.destroy();
 							}
@@ -3418,7 +3419,7 @@ class PlayState extends MusicBeatState
 				&& daNote.isSustainNote == note.isSustainNote
 				&& Math.abs(daNote.strumTime - note.strumTime) < 1)
 			{
-				//note.kill();
+				// note.kill();
 				notes.remove(note, true);
 				note.destroy();
 			}
@@ -3552,7 +3553,7 @@ class PlayState extends MusicBeatState
 
 		if (!note.isSustainNote)
 		{
-			//note.kill();
+			// note.kill();
 			notes.remove(note, true);
 			note.destroy();
 		}
@@ -3586,7 +3587,7 @@ class PlayState extends MusicBeatState
 				note.wasGoodHit = true;
 				if (!note.isSustainNote)
 				{
-					//note.kill();
+					// note.kill();
 					notes.remove(note, true);
 					note.destroy();
 				}
@@ -3670,7 +3671,7 @@ class PlayState extends MusicBeatState
 
 			if (!note.isSustainNote)
 			{
-				//note.kill();
+				// note.kill();
 				notes.remove(note, true);
 				note.destroy();
 			}
@@ -3994,6 +3995,35 @@ class PlayState extends MusicBeatState
 
 	private function precacheEVERYTHING()
 	{
-		// todo
+		Paths.precacheImage('alertshit');
+		Paths.precacheImage('bfbars');
+		Paths.precacheImage('bfplatform');
+		Paths.precacheImage('cityone');
+		Paths.precacheImage('citytwo');
+		Paths.precacheImage('clouds');
+		Paths.precacheImage('clouds2');
+		Paths.precacheImage('dragons');
+		Paths.precacheImage('Extras');
+		Paths.precacheImage('grands');
+		Paths.precacheImage('GroundbreakingCalled');
+		Paths.precacheImage('lighting');
+		Paths.precacheImage('lightingtwo');
+		Paths.precacheImage('overlay');
+		Paths.precacheImage('parrry');
+		Paths.precacheImage('skyback');
+		Paths.precacheImage('stand');
+		Paths.precacheImage('theboys');
+		Paths.precacheImage('bf_alt');
+		Paths.precacheImage('draco');
+		Paths.precacheImage('ryuga');
+		Paths.precacheImage('ryugatransform');
+		Paths.music('thunder0');
+		Paths.music('thunder1');
+		Paths.music('thunder2');
+		Paths.music('thunder3');
+		Paths.music('thunder4');
+		Paths.music('thunder5');
+		Paths.music('thunder6');
+		Paths.music('thunder7');
 	}
 }
