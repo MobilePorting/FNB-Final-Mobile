@@ -678,6 +678,15 @@ class PlayState extends MusicBeatState
 
 		// startCountdown();
 
+		#if mobileC
+		#if !android
+		addVirtualPad(NONE, P);
+		addVirtualPadCamera(false);
+		virtualPad.visible = true;
+		#end
+		addMobileControls(false);
+		#end
+
 		generateSong(SONG.song);
 		#if LUA_ALLOWED
 		for (notetype in noteTypeMap.keys())
@@ -1329,6 +1338,7 @@ class PlayState extends MusicBeatState
 	function startSong():Void
 	{
 		startingSong = false;
+		mobileControls.visible = true;
 
 		previousFrameTime = FlxG.game.ticks;
 		lastReportedPlayheadPosition = 0;
@@ -1387,7 +1397,7 @@ class PlayState extends MusicBeatState
 				daNote.visible = false;
 				daNote.ignoreNote = true;
 
-				daNote.kill();
+				//daNote.kill();
 				notes.remove(daNote, true);
 				daNote.destroy();
 			}
@@ -1896,7 +1906,7 @@ class PlayState extends MusicBeatState
 
 	function hittingSpaceSHit()
 	{
-		if (pressedSpaceCounter == 0 && FlxG.keys.anyPressed([SPACE]))
+		if (pressedSpaceCounter == 0 && FlxG.keys.anyPressed([SPACE]) #if mobileC || mobileControls.hitbox.hints[4].pressed #end)
 		{
 			parrry.animation.stop();
 			pressedSpaceCounter++;
@@ -2004,7 +2014,7 @@ class PlayState extends MusicBeatState
 			botplayTxt.alpha = 1 - Math.sin((Math.PI * botplaySine) / 180);
 		}
 
-		if (controls.PAUSE && startedCountdown && canPause)
+		if (controls.PAUSE #if android || FlxG.android.justReleased.BACK #end && startedCountdown && canPause)
 		{
 			var ret:Dynamic = callOnLuas('onPause', []);
 			if (ret != FunkinLua.Function_Stop)
@@ -2315,7 +2325,7 @@ class PlayState extends MusicBeatState
 					daNote.active = false;
 					daNote.visible = false;
 
-					daNote.kill();
+					//daNote.kill();
 					notes.remove(daNote, true);
 					daNote.destroy();
 				}
@@ -2361,7 +2371,7 @@ class PlayState extends MusicBeatState
 						daNote.active = false;
 						daNote.visible = false;
 
-						daNote.kill();
+						//daNote.kill();
 						notes.remove(daNote, true);
 						daNote.destroy();
 					}
@@ -2377,7 +2387,7 @@ class PlayState extends MusicBeatState
 					daNote.active = false;
 					daNote.visible = false;
 
-					daNote.kill();
+					//daNote.kill();
 					unspawnNotes.splice(unspawnNotes.indexOf(daNote), 1);
 					daNote.destroy();
 				}
@@ -2401,7 +2411,7 @@ class PlayState extends MusicBeatState
 						daNote.active = false;
 						daNote.visible = false;
 
-						daNote.kill();
+						//daNote.kill();
 						notes.remove(daNote, true);
 						daNote.destroy();
 					}
@@ -2417,7 +2427,7 @@ class PlayState extends MusicBeatState
 					daNote.active = false;
 					daNote.visible = false;
 
-					daNote.kill();
+					//daNote.kill();
 					unspawnNotes.splice(unspawnNotes.indexOf(daNote), 1);
 					daNote.destroy();
 				}
@@ -2876,7 +2886,7 @@ class PlayState extends MusicBeatState
 		timeTxt.visible = false;
 		canPause = false;
 		endingSong = true;
-		camZooming = false;
+		camZooming = mobileControls.visible = #if !android virtualPad.visible = #end false;
 		inCutscene = false;
 		updateTime = false;
 
@@ -2996,7 +3006,7 @@ class PlayState extends MusicBeatState
 			daNote.active = false;
 			daNote.visible = false;
 
-			daNote.kill();
+			//daNote.kill();
 			notes.remove(daNote, true);
 			daNote.destroy();
 		}
@@ -3250,7 +3260,7 @@ class PlayState extends MusicBeatState
 						{
 							if (Math.abs(doubleNote.strumTime - epicNote.strumTime) < 1)
 							{
-								doubleNote.kill();
+								//doubleNote.kill();
 								notes.remove(doubleNote, true);
 								doubleNote.destroy();
 							}
@@ -3408,7 +3418,7 @@ class PlayState extends MusicBeatState
 				&& daNote.isSustainNote == note.isSustainNote
 				&& Math.abs(daNote.strumTime - note.strumTime) < 1)
 			{
-				note.kill();
+				//note.kill();
 				notes.remove(note, true);
 				note.destroy();
 			}
@@ -3542,7 +3552,7 @@ class PlayState extends MusicBeatState
 
 		if (!note.isSustainNote)
 		{
-			note.kill();
+			//note.kill();
 			notes.remove(note, true);
 			note.destroy();
 		}
@@ -3576,7 +3586,7 @@ class PlayState extends MusicBeatState
 				note.wasGoodHit = true;
 				if (!note.isSustainNote)
 				{
-					note.kill();
+					//note.kill();
 					notes.remove(note, true);
 					note.destroy();
 				}
@@ -3660,7 +3670,7 @@ class PlayState extends MusicBeatState
 
 			if (!note.isSustainNote)
 			{
-				note.kill();
+				//note.kill();
 				notes.remove(note, true);
 				note.destroy();
 			}
@@ -3790,7 +3800,7 @@ class PlayState extends MusicBeatState
 
 	public function triggerQTE()
 	{
-		if (FlxG.keys.anyPressed([SPACE]))
+		if (FlxG.keys.anyPressed([SPACE]) #if mobileC || mobileControls.hitbox.hints[4].justPressed #end)
 		{
 			health += 0.15;
 		}

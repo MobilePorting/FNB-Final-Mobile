@@ -63,9 +63,12 @@ class Paths
 		currentLevel = name.toLowerCase();
 	}
 
-	public static function getPath(file:String, type:AssetType, ?library:Null<String> = "platform")
+	public static function getPath(file:String, type:AssetType, ?library:Null<String> = null)
 	{
-		if (library != null && Assets.exists(getLibraryPath(file, library)))
+		if (Assets.exists(getLibraryPath(file, "platform")))
+			return getLibraryPath(file, "platform");
+
+		if (library != null)
 			return getLibraryPath(file, library);
 
 		if (currentLevel != null)

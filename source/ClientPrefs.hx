@@ -28,7 +28,7 @@ class ClientPrefs
 	public static var scoreZoom:Bool = true;
 	public static var noReset:Bool = false;
 	public static var healthBarAlpha:Float = 1;
-	public static var controllerMode:Bool = false;
+	public static var controllerMode:Bool =  #if mobileC true #else false #end;
 
 	public static var startingTime:Int = 0;
 	public static var songScore:Int = 0;

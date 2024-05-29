@@ -130,6 +130,10 @@ class BaseOptionsMenu extends MusicBeatSubstate
 
 		changeSelection();
 		reloadCheckboxes();
+
+		#if mobileC
+		addVirtualPad(LEFT_FULL, A_B);
+		#end
 	}
 
 	public function addOption(option:Option)
@@ -382,6 +386,7 @@ class BaseOptionsMenu extends MusicBeatSubstate
 		boyfriend.setGraphicSize(Std.int(boyfriend.width * 0.75));
 		boyfriend.updateHitbox();
 		boyfriend.dance();
+		boyfriend.flipX = false;
 		insert(1, boyfriend);
 		boyfriend.visible = wasVisible;
 	}

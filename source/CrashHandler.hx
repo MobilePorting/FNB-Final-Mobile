@@ -3,7 +3,7 @@ package;
 import openfl.events.UncaughtErrorEvent;
 import openfl.events.ErrorEvent;
 import openfl.errors.Error;
-#if sys
+#if MODS_ALLOWED
 import sys.FileSystem;
 import sys.io.File;
 #end
@@ -63,7 +63,7 @@ class CrashHandler
 			}
 		}
 		stackLabel = stackLabelArr.join('\r\n');
-		#if sys
+		#if MODS_ALLOWED
 		try
 		{
 			if (!FileSystem.exists('crash'))

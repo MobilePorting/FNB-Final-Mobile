@@ -95,6 +95,7 @@ class NoteOffsetState extends MusicBeatState
 		boyfriend = new Character(770, 100, 'bf', true);
 		boyfriend.x += boyfriend.positionArray[0];
 		boyfriend.y += boyfriend.positionArray[1];
+		boyfriend.flipX = false;
 		add(gf);
 		add(boyfriend);
 

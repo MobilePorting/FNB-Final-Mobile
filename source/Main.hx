@@ -87,6 +87,12 @@ class Main extends Sprite
 			fpsVar.visible = ClientPrefs.showFPS;
 		}
 
+		#if android FlxG.android.preventDefaultKeys = [BACK]; #end
+
+		FlxG.signals.gameResized.add(function(w, h)
+			if (fpsVar != null)
+				fpsVar.positionFPS(10, 3, Math.min(w / FlxG.width, h / FlxG.height)));
+
 		#if html5
 		FlxG.autoPause = false;
 		FlxG.mouse.visible = false;
