@@ -856,9 +856,9 @@ class FunkinLua
 				CustomFadeTransition.nextCamera = null;
 
 			if (PlayState.isStoryMode)
-				FlxG.switchState(() ->  new StoryMenuState());
+				#if (flixel >= version("5.6.0")) FlxG#else MusicBeatState#end.switchState(#if (flixel >= version("5.6.0")) () -> #end new StoryMenuState());
 			else
-				FlxG.switchState(() ->  new FreeplayState());
+				#if (flixel >= version("5.6.0")) FlxG#else MusicBeatState#end.switchState(#if (flixel >= version("5.6.0")) () -> #end new FreeplayState());
 
 			FlxG.sound.playMusic(Paths.music('MENU'));
 			PlayState.changedDifficulty = false;

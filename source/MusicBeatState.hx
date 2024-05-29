@@ -195,7 +195,8 @@ class MusicBeatState extends FlxUIState
 		curStep = lastChange.stepTime + Math.floor(((Conductor.songPosition - ClientPrefs.noteOffset) - lastChange.songTime) / Conductor.stepCrochet);
 	}
 
-	override function startOutro(onOutroComplete:() -> Void):Void
+	#if (flixel >= version("5.6.0"))
+	override function startOutro(onOutroComplete:()-> Void):Void
 	{
 		if (!FlxTransitionableState.skipNextTransIn)
 		{
@@ -210,6 +211,32 @@ class MusicBeatState extends FlxUIState
 
 		onOutroComplete();
 	}
+	#end
+
+	#if (flixel <= version("4.11.0"))
+	public static function switchState(nextState:FlxState) {
+		// Custom made Trans in
+		var curState:Dynamic = FlxG.state;
+		var leState:MusicBeatState = curState;
+		if(!FlxTransitionableState.skipNextTransIn) {
+			leState.openSubState(new CustomFadeTransition(0.7, false));
+			if(nextState == FlxG.state) {
+				CustomFadeTransition.finishCallback = function() {
+					FlxG.resetState();
+				};
+				//trace('resetted');
+			} else {
+				CustomFadeTransition.finishCallback = function() {
+					#if (flixel >= version("5.6.0")) FlxG#else MusicBeatState#end.switchState(nextState);
+				};
+				//trace('changed state');
+			}
+			return;
+		}
+		FlxTransitionableState.skipNextTransIn = false;
+		#if (flixel >= version("5.6.0")) FlxG#else MusicBeatState#end.switchState(nextState);
+	}
+	#end
 
 	public static function getState():MusicBeatState
 	{

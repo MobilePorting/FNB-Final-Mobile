@@ -59,7 +59,7 @@ class GitarooPause extends MusicBeatState
 		{
 			if (replaySelect)
 			{
-				FlxG.switchState(() ->  new PlayState());
+				#if (flixel >= version("5.6.0")) FlxG#else MusicBeatState#end.switchState(#if (flixel >= version("5.6.0")) () -> #end new PlayState());
 			}
 			else
 			{
@@ -68,7 +68,7 @@ class GitarooPause extends MusicBeatState
 				PlayState.seenCutscene = false;
 				PlayState.deathCounter = 0;
 				PlayState.cpuControlled = false;
-				FlxG.switchState(() ->  new MainMenuState());
+				#if (flixel >= version("5.6.0")) FlxG#else MusicBeatState#end.switchState(#if (flixel >= version("5.6.0")) () -> #end new MainMenuState());
 				FlxG.sound.playMusic(Paths.music('MENU'));
 			}
 		}

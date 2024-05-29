@@ -149,7 +149,7 @@ class WeekEditorState extends MusicBeatState
 
 		var freeplayButton:FlxButton = new FlxButton(0, 650, "Freeplay", function()
 		{
-			FlxG.switchState(() ->  new WeekEditorFreeplayState(weekFile));
+			#if (flixel >= version("5.6.0")) FlxG#else MusicBeatState#end.switchState(#if (flixel >= version("5.6.0")) () -> #end new WeekEditorFreeplayState(weekFile));
 		});
 		freeplayButton.screenCenter(X);
 		add(freeplayButton);
@@ -483,7 +483,7 @@ class WeekEditorState extends MusicBeatState
 			FlxG.sound.volumeUpKeys = TitleState.volumeUpKeys;
 			if (FlxG.keys.justPressed.ESCAPE)
 			{
-				FlxG.switchState(() ->  new editors.MasterEditorMenu());
+				#if (flixel >= version("5.6.0")) FlxG#else MusicBeatState#end.switchState(#if (flixel >= version("5.6.0")) () -> #end new editors.MasterEditorMenu());
 				FlxG.sound.playMusic(Paths.music('MENU'));
 			}
 		}
@@ -706,7 +706,7 @@ class WeekEditorFreeplayState extends MusicBeatState
 
 		var storyModeButton:FlxButton = new FlxButton(0, 685, "Story Mode", function()
 		{
-			FlxG.switchState(() ->  new WeekEditorState(weekFile));
+			#if (flixel >= version("5.6.0")) FlxG#else MusicBeatState#end.switchState(#if (flixel >= version("5.6.0")) () -> #end new WeekEditorState(weekFile));
 		});
 		storyModeButton.screenCenter(X);
 		add(storyModeButton);
@@ -860,7 +860,7 @@ class WeekEditorFreeplayState extends MusicBeatState
 			super.update(elapsed);
 			FlxTransitionableState.skipNextTransIn = true;
 			FlxTransitionableState.skipNextTransOut = true;
-			FlxG.switchState(() ->  new WeekEditorFreeplayState(WeekEditorState.loadedWeek));
+			#if (flixel >= version("5.6.0")) FlxG#else MusicBeatState#end.switchState(#if (flixel >= version("5.6.0")) () -> #end new WeekEditorFreeplayState(WeekEditorState.loadedWeek));
 			WeekEditorState.loadedWeek = null;
 			return;
 		}
@@ -882,7 +882,7 @@ class WeekEditorFreeplayState extends MusicBeatState
 			FlxG.sound.volumeUpKeys = TitleState.volumeUpKeys;
 			if (FlxG.keys.justPressed.ESCAPE)
 			{
-				FlxG.switchState(() ->  new editors.MasterEditorMenu());
+				#if (flixel >= version("5.6.0")) FlxG#else MusicBeatState#end.switchState(#if (flixel >= version("5.6.0")) () -> #end new editors.MasterEditorMenu());
 				FlxG.sound.playMusic(Paths.music('MENU'));
 			}
 

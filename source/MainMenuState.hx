@@ -118,7 +118,7 @@ class MainMenuState extends MusicBeatState
 							case 'rr':
 								loadWeek();
 							case 'options':
-								FlxG.switchState(() ->  new options.OptionsState());
+								#if (flixel >= version("5.6.0")) FlxG#else MusicBeatState#end.switchState(#if (flixel >= version("5.6.0")) () -> #end new options.OptionsState());
 						}
 					});
 				});
@@ -127,7 +127,7 @@ class MainMenuState extends MusicBeatState
 			/*else if (FlxG.keys.anyJustPressed(debugKeys))
 			{
 				selectedSomethin = true;
-				FlxG.switchState(() ->  new MasterEditorMenu());
+				#if (flixel >= version("5.6.0")) FlxG#else MusicBeatState#end.switchState(#if (flixel >= version("5.6.0")) () -> #end new MasterEditorMenu());
 			}*/
 			#end
 		}
@@ -143,7 +143,7 @@ class MainMenuState extends MusicBeatState
 		PlayState.SONG = Song.loadFromJson(PlayState.storyPlaylist[0].toLowerCase(), PlayState.storyPlaylist[0].toLowerCase()); // no diffs for you
 		PlayState.campaignScore = 0;
 		PlayState.campaignMisses = 0;
-		LoadingState.loadAndSwitchState(() -> new PlayState(), true);
+		LoadingState.loadAndSwitchState(#if (flixel >= version("5.6.0")) () -> #end new PlayState(), true);
 		FreeplayState.destroyFreeplayVocals();
 	}
 

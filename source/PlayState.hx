@@ -2083,7 +2083,7 @@ class PlayState extends MusicBeatState
 			paused = true;
 			cancelMusicFadeTween();
 			CustomFadeTransition.nextCamera = camOther;
-			FlxG.switchState(() -> new CharacterEditorState(SONG.player2));
+			#if (flixel >= version("5.6.0")) FlxG#else MusicBeatState#end.switchState(#if (flixel >= version("5.6.0")) () -> #end new CharacterEditorState(SONG.player2));
 		}
 
 		if (startingSong)
@@ -2455,7 +2455,7 @@ class PlayState extends MusicBeatState
 		paused = true;
 		cancelMusicFadeTween();
 		CustomFadeTransition.nextCamera = camOther;
-		FlxG.switchState(() -> new ChartingState());
+		#if (flixel >= version("5.6.0")) FlxG#else MusicBeatState#end.switchState(#if (flixel >= version("5.6.0")) () -> #end new ChartingState());
 		chartingMode = true;
 
 		#if desktop
@@ -2494,7 +2494,7 @@ class PlayState extends MusicBeatState
 				openSubState(new GameOverSubstate(boyfriend.getScreenPosition().x - boyfriend.positionArray[0],
 					boyfriend.getScreenPosition().y - boyfriend.positionArray[1], camFollowPos.x, camFollowPos.y));
 
-				// FlxG.switchState(() ->  new GameOverState(boyfriend.getScreenPosition().x, boyfriend.getScreenPosition().y));
+				// #if (flixel >= version("5.6.0")) FlxG#else MusicBeatState#end.switchState(#if (flixel >= version("5.6.0")) () -> #end new GameOverState(boyfriend.getScreenPosition().x, boyfriend.getScreenPosition().y));
 
 				#if desktop
 				// Game Over doesn't get his own variable because it's only used here
@@ -2935,7 +2935,7 @@ class PlayState extends MusicBeatState
 					{
 						CustomFadeTransition.nextCamera = null;
 					}
-					FlxG.switchState(() -> new MainMenuState());
+					#if (flixel >= version("5.6.0")) FlxG#else MusicBeatState#end.switchState(#if (flixel >= version("5.6.0")) () -> #end new MainMenuState());
 
 					changedDifficulty = false;
 				}
@@ -2972,13 +2972,13 @@ class PlayState extends MusicBeatState
 						new FlxTimer().start(1.5, function(tmr:FlxTimer)
 						{
 							cancelMusicFadeTween();
-							LoadingState.loadAndSwitchState(() -> new PlayState());
+							LoadingState.loadAndSwitchState(#if (flixel >= version("5.6.0")) () -> #end new PlayState());
 						});
 					}
 					else
 					{
 						cancelMusicFadeTween();
-						LoadingState.loadAndSwitchState(() -> new PlayState());
+						LoadingState.loadAndSwitchState(#if (flixel >= version("5.6.0")) () -> #end new PlayState());
 					}
 				}
 			}
@@ -2991,7 +2991,7 @@ class PlayState extends MusicBeatState
 				{
 					CustomFadeTransition.nextCamera = null;
 				}
-				FlxG.switchState(() -> new MainMenuState());
+				#if (flixel >= version("5.6.0")) FlxG#else MusicBeatState#end.switchState(#if (flixel >= version("5.6.0")) () -> #end new MainMenuState());
 				FlxG.sound.playMusic(Paths.music('MENU'));
 				changedDifficulty = false;
 			}

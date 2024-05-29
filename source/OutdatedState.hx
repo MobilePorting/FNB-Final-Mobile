@@ -50,7 +50,7 @@ class OutdatedState extends MusicBeatState
 				FlxTween.tween(warnText, {alpha: 0}, 1, {
 					onComplete: function(twn:FlxTween)
 					{
-						FlxG.switchState(() ->  new MainMenuState());
+						#if (flixel >= version("5.6.0")) FlxG#else MusicBeatState#end.switchState(#if (flixel >= version("5.6.0")) () -> #end new MainMenuState());
 					}
 				});
 			}

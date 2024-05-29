@@ -328,7 +328,7 @@ class EditorPlayState extends MusicBeatState
 
 	private function endSong()
 	{
-		LoadingState.loadAndSwitchState(() -> new editors.ChartingState());
+		LoadingState.loadAndSwitchState(#if (flixel >= version("5.6.0")) () -> #end new editors.ChartingState());
 	}
 
 	override function update(elapsed:Float)
@@ -337,7 +337,7 @@ class EditorPlayState extends MusicBeatState
 		{
 			FlxG.sound.music.pause();
 			vocals.pause();
-			LoadingState.loadAndSwitchState(() -> new editors.ChartingState());
+			LoadingState.loadAndSwitchState(#if (flixel >= version("5.6.0")) () -> #end new editors.ChartingState());
 		}
 
 		if (startingSong)

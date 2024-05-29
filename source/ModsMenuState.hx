@@ -458,7 +458,7 @@ class ModsMenuState extends MusicBeatState
 			saveTxt();
 			if (needaReset)
 			{
-				// FlxG.switchState(() ->  new TitleState());
+				// #if (flixel >= version("5.6.0")) FlxG#else MusicBeatState#end.switchState(#if (flixel >= version("5.6.0")) () -> #end new TitleState());
 				TitleState.initialized = false;
 				TitleState.closedState = false;
 				FlxG.sound.music.fadeOut(0.3);
@@ -466,7 +466,7 @@ class ModsMenuState extends MusicBeatState
 			}
 			else
 			{
-				FlxG.switchState(() ->  new MainMenuState());
+				#if (flixel >= version("5.6.0")) FlxG#else MusicBeatState#end.switchState(#if (flixel >= version("5.6.0")) () -> #end new MainMenuState());
 			}
 		}
 

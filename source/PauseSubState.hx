@@ -201,11 +201,11 @@ class PauseSubState extends MusicBeatSubstate
 					PlayState.seenCutscene = false;
 					if (PlayState.isStoryMode)
 					{
-						FlxG.switchState(() ->  new MainMenuState());
+						#if (flixel >= version("5.6.0")) FlxG#else MusicBeatState#end.switchState(#if (flixel >= version("5.6.0")) () -> #end new MainMenuState());
 					}
 					else
 					{
-						FlxG.switchState(() ->  new FreeplayState());
+						#if (flixel >= version("5.6.0")) FlxG#else MusicBeatState#end.switchState(#if (flixel >= version("5.6.0")) () -> #end new FreeplayState());
 					}
 					FlxG.sound.playMusic(Paths.music('MENU'));
 					PlayState.changedDifficulty = false;

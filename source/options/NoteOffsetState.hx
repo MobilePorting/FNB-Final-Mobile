@@ -367,7 +367,7 @@ class NoteOffsetState extends MusicBeatState
 
 			persistentUpdate = false;
 			CustomFadeTransition.nextCamera = camOther;
-			FlxG.switchState(() ->  new options.OptionsState());
+			#if (flixel >= version("5.6.0")) FlxG#else MusicBeatState#end.switchState(#if (flixel >= version("5.6.0")) () -> #end new options.OptionsState());
 			FlxG.sound.playMusic(Paths.music('MENU'), 1, true);
 			FlxG.mouse.visible = false;
 		}

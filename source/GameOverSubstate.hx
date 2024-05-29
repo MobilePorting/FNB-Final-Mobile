@@ -104,7 +104,7 @@ class GameOverSubstate extends MusicBeatSubstate
 			PlayState.deathCounter = 0;
 			PlayState.seenCutscene = false;
 
-			FlxG.switchState(() ->  new MainMenuState());
+			#if (flixel >= version("5.6.0")) FlxG#else MusicBeatState#end.switchState(#if (flixel >= version("5.6.0")) () -> #end new MainMenuState());
 
 			FlxG.sound.playMusic(Paths.music('MENU'));
 			PlayState.instance.callOnLuas('onGameOverConfirm', [false]);

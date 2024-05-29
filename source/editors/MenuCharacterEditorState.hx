@@ -306,7 +306,7 @@ class MenuCharacterEditorState extends MusicBeatState
 			FlxG.sound.volumeUpKeys = TitleState.volumeUpKeys;
 			if (FlxG.keys.justPressed.ESCAPE)
 			{
-				FlxG.switchState(() ->  new editors.MasterEditorMenu());
+				#if (flixel >= version("5.6.0")) FlxG#else MusicBeatState#end.switchState(#if (flixel >= version("5.6.0")) () -> #end new editors.MasterEditorMenu());
 				FlxG.sound.playMusic(Paths.music('MENU'));
 			}
 

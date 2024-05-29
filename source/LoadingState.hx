@@ -12,7 +12,12 @@ import lime.utils.Assets as LimeAssets;
 import lime.utils.AssetLibrary;
 import lime.utils.AssetManifest;
 import haxe.io.Path;
+
+#if (flixel < version("5.6.0"))
+typedef NextState = flixel.FlxState;
+#else
 import flixel.util.typeLimit.NextState;
+#end
 
 class LoadingState extends MusicBeatState
 {
@@ -136,7 +141,7 @@ class LoadingState extends MusicBeatState
 		if (stopMusic && FlxG.sound.music != null)
 			FlxG.sound.music.stop();
 
-		FlxG.switchState(target);
+		#if (flixel >= version("5.6.0")) FlxG#else MusicBeatState#end.switchState(target);
 	}
 
 	static function getSongPath()
@@ -151,7 +156,7 @@ class LoadingState extends MusicBeatState
 
 	inline static public function loadAndSwitchState(target:NextState, stopMusic = false)
 	{
-		FlxG.switchState(getNextState(target, stopMusic));
+		#if (flixel >= version("5.6.0")) FlxG#else MusicBeatState#end.switchState(getNextState(target, stopMusic));
 	}
 
 	static function getNextState(target:NextState, stopMusic = false):NextState

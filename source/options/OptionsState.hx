@@ -61,7 +61,7 @@ class OptionsState extends MusicBeatState
 			case 'Gameplay':
 				openSubState(new options.GameplaySettingsSubState());
 			/*case 'Adjust Delay and Combo':
-				LoadingState.loadAndSwitchState(() -> new options.NoteOffsetState());*/
+				LoadingState.loadAndSwitchState(#if (flixel >= version("5.6.0")) () -> #end new options.NoteOffsetState());*/
 		}
 	}
 
@@ -134,7 +134,7 @@ class OptionsState extends MusicBeatState
 		if (controls.BACK)
 		{
 			FlxG.sound.play(Paths.sound('cancelMenu'));
-			FlxG.switchState(() ->  new MainMenuState());
+			#if (flixel >= version("5.6.0")) FlxG#else MusicBeatState#end.switchState(#if (flixel >= version("5.6.0")) () -> #end new MainMenuState());
 		}
 
 		if (controls.ACCEPT)

@@ -286,7 +286,7 @@ class FreeplayState extends MusicBeatState
 				colorTween.cancel();
 			}
 			FlxG.sound.play(Paths.sound('cancelMenu'));
-			FlxG.switchState(() ->  new MainMenuState());
+			#if (flixel >= version("5.6.0")) FlxG#else MusicBeatState#end.switchState(#if (flixel >= version("5.6.0")) () -> #end new MainMenuState());
 		}
 
 		if (ctrl)
@@ -345,11 +345,11 @@ class FreeplayState extends MusicBeatState
 
 			if (FlxG.keys.pressed.SHIFT)
 			{
-				LoadingState.loadAndSwitchState(() -> new ChartingState());
+				LoadingState.loadAndSwitchState(#if (flixel >= version("5.6.0")) () -> #end new ChartingState());
 			}
 			else
 			{
-				LoadingState.loadAndSwitchState(() -> new PlayState());
+				LoadingState.loadAndSwitchState(#if (flixel >= version("5.6.0")) () -> #end new PlayState());
 			}
 
 			FlxG.sound.music.volume = 0;

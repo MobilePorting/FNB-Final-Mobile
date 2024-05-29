@@ -161,9 +161,9 @@ class TitleState extends MusicBeatState
 
 		FlxG.mouse.visible = false;
 		#if FREEPLAY
-		FlxG.switchState(() ->  new FreeplayState());
+		#if (flixel >= version("5.6.0")) FlxG#else MusicBeatState#end.switchState(#if (flixel >= version("5.6.0")) () -> #end new FreeplayState());
 		#elseif CHARTING
-		FlxG.switchState(() ->  new ChartingState());
+		#if (flixel >= version("5.6.0")) FlxG#else MusicBeatState#end.switchState(#if (flixel >= version("5.6.0")) () -> #end new ChartingState());
 		#else
 		{
 			#if desktop
@@ -317,11 +317,11 @@ class TitleState extends MusicBeatState
 				{
 					if (mustUpdate)
 					{
-						FlxG.switchState(() ->  new OutdatedState());
+						#if (flixel >= version("5.6.0")) FlxG#else MusicBeatState#end.switchState(#if (flixel >= version("5.6.0")) () -> #end new OutdatedState());
 					}
 					else
 					{
-						FlxG.switchState(() ->  new MainMenuState());
+						#if (flixel >= version("5.6.0")) FlxG#else MusicBeatState#end.switchState(#if (flixel >= version("5.6.0")) () -> #end new MainMenuState());
 					}
 					closedState = true;
 				});
@@ -363,7 +363,7 @@ class TitleState extends MusicBeatState
 								function(twn:FlxTween) {
 									FlxTransitionableState.skipNextTransIn = true;
 									FlxTransitionableState.skipNextTransOut = true;
-									FlxG.switchState(() ->  new TitleState());
+									#if (flixel >= version("5.6.0")) FlxG#else MusicBeatState#end.switchState(#if (flixel >= version("5.6.0")) () -> #end new TitleState());
 								}
 							});
 							lastKeysPressed = [];

@@ -404,7 +404,7 @@ class DialogueEditorState extends MusicBeatState
 			}
 			if (FlxG.keys.justPressed.ESCAPE)
 			{
-				FlxG.switchState(() ->  new editors.MasterEditorMenu());
+				#if (flixel >= version("5.6.0")) FlxG#else MusicBeatState#end.switchState(#if (flixel >= version("5.6.0")) () -> #end new editors.MasterEditorMenu());
 				FlxG.sound.playMusic(Paths.music('MENU'), 1);
 				transitioning = true;
 			}
