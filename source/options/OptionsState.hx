@@ -32,7 +32,7 @@ class OptionsState extends MusicBeatState
 	var options:Array<String> = [
 		'Note Colors',
 		'Controls',
-		'Adjust Delay and Combo',
+		//'Adjust Delay and Combo',
 		'Graphics',
 		'Visuals and UI',
 		'Gameplay'
@@ -46,7 +46,7 @@ class OptionsState extends MusicBeatState
 	{
 		persistentUpdate = false;
 		#if mobileC
-		if (label != 'Adjust Delay and Combo') removeVirtualPad();
+		/*if (label != 'Adjust Delay and Combo')*/ removeVirtualPad();
 		#end
 		switch (label)
 		{
@@ -60,8 +60,8 @@ class OptionsState extends MusicBeatState
 				openSubState(new options.VisualsUISubState());
 			case 'Gameplay':
 				openSubState(new options.GameplaySettingsSubState());
-			case 'Adjust Delay and Combo':
-				LoadingState.loadAndSwitchState(() -> new options.NoteOffsetState());
+			/*case 'Adjust Delay and Combo':
+				LoadingState.loadAndSwitchState(() -> new options.NoteOffsetState());*/
 		}
 	}
 
