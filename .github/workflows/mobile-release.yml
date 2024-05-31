@@ -64,12 +64,12 @@ jobs:
           cd export/release/ios/build/Release-iphoneos
           mkdir Payload
           mv *.app Payload
-          zip -r FridayNightBladin.ipa Payload
+          zip -r "Friday Night Bladin.ipa" Payload
 
       - name: Make Zip For Release
         run: |
            cd export/release/ios/build/Release-iphoneos
-           zip FridayNightBladin-iOS.zip FridayNightBladin.ipa
+           zip "Friday Night Bladin-iOS.zip" "Friday Night Bladin.ipa" 
 
       - name: Upload Artifact
         uses: actions/upload-artifact@main
@@ -89,7 +89,7 @@ jobs:
            path: /home/runner
 
       - name: Move Android File
-        run: mv /home/runner/FridayNightBladin-debug.apk /home/runner/FridayNightBladin-Android.apk
+        run: mv "/home/runner/Friday Night Bladin-debug.apk" "/home/runner/Friday Night Bladin-Android.apk"
 
       - name: Download iOS Build
         uses: actions/download-artifact@main
