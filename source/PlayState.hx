@@ -1338,7 +1338,7 @@ class PlayState extends MusicBeatState
 	function startSong():Void
 	{
 		startingSong = false;
-		mobileControls.visible = true;
+		#if mobileC mobileControls.visible = true; #end
 
 		previousFrameTime = FlxG.game.ticks;
 		lastReportedPlayheadPosition = 0;
@@ -2886,7 +2886,7 @@ class PlayState extends MusicBeatState
 		timeTxt.visible = false;
 		canPause = false;
 		endingSong = true;
-		camZooming = mobileControls.visible = #if !android virtualPad.visible = #end
+		camZooming = #if mobileC mobileControls.visible = #if !android virtualPad.visible = #end #end false;
 		false;
 		inCutscene = false;
 		updateTime = false;
